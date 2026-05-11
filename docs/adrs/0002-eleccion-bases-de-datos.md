@@ -1,81 +1,31 @@
-# ADR 0008: Gestión de Categorías — Catálogo Predefinido en Código
+# ADR 0002: Persistencia (MongoDB y PostgreSQL)
 
 ## Estado
 Aceptado
 
 ## Contexto
-La consigna exige que el vendedor pueda asignar una categoría al publicar un
-producto, y que los usuarios puedan filtrar el catálogo por categoría. Las
-categorías disponibles son responsabilidad del sistema, no del vendedor. La
-consigna pide documentar explícitamente cómo se administra este catálogo.
+El sistema Bazaar requiere gestionar entidades con naturalezas y requisitos de almacenamiento muy distintos. 
 
-Las alternativas evaluadas fueron:
+Por un lado, el Catálogo debe soportar productos de naturaleza heterogénea cuyos atributos varían significativamente según el tipo de ítem (ej: una notebook tiene especificaciones de RAM y procesador, mientras que una remera tiene talle y tela). Un esquema relacional rígido obligaría a usar antipatrones como EAV (Entity-Attribute-Value) o columnas sparse para representar esta variabilidad.
 
-- **Hardcodeadas en el código fuente**: la lista de categorías se define como
-  una constante inmutable en la aplicación. El único mecanismo de modificación
-  es un cambio de código y un nuevo despliegue.
-- **Configuradas en base de datos** (colección o tabla de categorías): las
-  categorías se almacenan como documentos en MongoDB y se consultan en runtime.
-  Permiten modificaciones sin redespliegue a través de un panel de administración.
-- **Gestionadas por el administrador mediante endpoints**: combinación de BD con
-  un CRUD expuesto en el backoffice para que el administrador agregue, edite o
-  deshabilite categorías.
+Por otro lado, los dominios de **Órdenes** y **Pagos** manejan información financiera y transaccional crítica. Estos requieren garantías estrictas de consistencia, integridad referencial y prevención de condiciones de carrera (por ejemplo, evitar que dos usuarios compren el último ítem disponible de forma simultánea). 
+
+Adicionalmente, los Requisitos No Funcionales (RNF) dictados por la cátedra exigen explícitamente el uso de al menos una tecnología de base de datos relacional (SQL) y una no relacional (NoSQL).
 
 ## Decisión
-Se adopta el modelo de **categorías predefinidas en código fuente** mediante una
-tupla de constantes en `app/core/catalog.py`.
+Decidimos implementar una estrategia de persistencia políglota, asignando el motor de base de datos que mejor se adapte al dominio de cada microservicio:
 
-### Implementación
-El módulo define `PREDEFINED_CATEGORIES` como una tupla inmutable de 8 categorías
-(tecnologia, hogar, moda, deportes, libros, juguetes, coleccionables, herramientas),
-cada una con los campos `slug` (identificador URL-friendly) y `label` (texto
-legible). Un diccionario `PREDEFINED_CATEGORY_BY_SLUG` indexa las mismas entradas
-para búsqueda O(1) por slug.
-
-El endpoint `GET /categories/` expone la lista completa sin autenticación. Existe
-un `POST /categories/` reservado para administradores que actualmente retorna
-`501 Not Implemented`, dejando la extensión explícitamente señalizada en la API
-sin habilitar la funcionalidad.
-
-### Almacenamiento en productos
-Cada documento de producto en MongoDB embebe un snapshot de la categoría en el
-momento de su creación (`{ "slug": "...", "label": "..." }`). El filtrado del
-catálogo usa un índice sobre `category.slug`. Al ser un snapshot embebido, un
-cambio futuro en el label de una categoría no afecta retroactivamente a los
-productos ya publicados.
-
-## Alternativas descartadas
-
-**Categorías en base de datos con CRUD de administrador**: descartada para el
-alcance actual del proyecto. Introduce una colección adicional, lógica de
-validación de referencias entre productos y categorías, y un panel de
-administración para un conjunto de datos que no varía durante el desarrollo.
-El `POST /categories/` con `501 Not Implemented` documenta que esta extensión
-está prevista y señaliza el punto de extensión sin romper el contrato de API.
-
-**Categorías en base de datos sin CRUD (seed al iniciar)**: descartada por
-agregar complejidad de migración (script de seed, idempotencia del seed) sin
-beneficio observable respecto a la constante en código para un catálogo fijo
-en esta etapa.
+1. **MongoDB (hosteado en MongoDB Atlas)** para el **Catalog API**: Utilizaremos una base de datos orientada a documentos (NoSQL) para almacenar los productos y sus categorías.
+2. **PostgreSQL (hosteado en Supabase)** para **User API, Orders & Checkout API y Payment API**: Usaremos una base de datos relacional (SQL) para los dominios transaccionales. El Carrito (Cart, CartItem) comparte la misma base de datos que Orders & Checkout API, dado que ambos dominios forman parte del mismo servicio y el checkout consume el carrito dentro de una única unidad de trabajo..
 
 ## Consecuencias
 
 ### Positivas
-- Sin latencia de consulta: la lista de categorías se resuelve en memoria sin
-  llamadas a la base de datos.
-- Sin riesgo de inconsistencia entre la lista de categorías válidas y los
-  productos almacenados: la validación ocurre en código antes del insert.
-- El contrato de API (`GET /categories/`) es estable y documentado; el frontend
-  puede consumirlo sin acoplamientos adicionales.
-- La extensión hacia categorías dinámicas está señalizada en el código
-  (`POST /categories/` → 501) y en este ADR.
+* **Flexibilidad extrema en el Catálogo:** Al utilizar documentos JSON en MongoDB, evitamos estructuras rígidas o antipatrones de diseño en SQL (como tablas EAV - Entity-Attribute-Value, o tener decenas de columnas en estado `NULL`) para manejar los atributos dinámicos de los distintos productos.
+* **Consistencia Transaccional:** PostgreSQL nos garantiza cumplimiento ACID (Atomicidad, Consistencia, Aislamiento, Durabilidad) para el manejo de stock, la generación de órdenes y la validación de idempotencia en los cobros.
+* **Cumplimiento de RNF:** Se satisface plenamente el requisito arquitectónico de la materia de utilizar tecnologías de bases de datos heterogéneas.
+* **Performance de lectura:** MongoDB Atlas está optimizado para consultas de lectura rápidas y flexibles, lo cual es ideal para el volumen de búsquedas que recibirá el catálogo.
 
 ### Negativas y Riesgos
-- **Agregar o renombrar una categoría requiere redespliegue**: no es posible
-  que el administrador gestione categorías desde el backoffice sin un cambio
-  de código. Para el alcance actual del proyecto esto es aceptable.
-- **Snapshots embebidos no se actualizan**: si en el futuro se renombra el
-  `label` de una categoría, los productos ya publicados conservarán el label
-  anterior. Sería necesario una migración de datos en MongoDB.
-- **8 categorías fijas pueden no cubrir todos los casos de uso**: los vendedores
-  no pueden proponer categorías nuevas; deben ajustarse al conjunto predefinido.
+* **Falta de Integridad Referencial Global:** No existen claves foráneas directas entre una Orden (en Postgres) y un Producto (en Mongo). La consistencia entre ambos motores se resuelve a nivel de aplicación: el checkout reserva stock en catalog-api antes de crear la orden, y ante fallo compensa la reserva (ver ADR 0007). Los campos product_name y unit_price se desnormalizan en OrderItem al momento de la compra para desacoplar el historial de órdenes de catalog-api.
+* **Sobrecarga Operativa:** El equipo de desarrollo debe administrar, configurar credenciales, realizar backups y mantener esquemas/colecciones en dos proveedores cloud distintos (MongoDB Atlas y Supabase), lo que aumenta la curva de aprendizaje y el mantenimiento de la infraestructura.
