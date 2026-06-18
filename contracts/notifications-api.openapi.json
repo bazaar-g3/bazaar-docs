@@ -1,0 +1,257 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Bazaar - Notifications API",
+    "description": "Notificaciones push vía Firebase Cloud Messaging.\n\n**Fire & forget**: el servicio nunca bloquea al cliente por un fallo de push.\n\n### Autenticación\n- `POST /notifications/push` — header `X-Internal-Secret` (solo microservicios)\n- `POST /notifications/register-device` — `Bearer <JWT>` (mobile app)\n- `DELETE /notifications/unregister-device` — `Bearer <JWT>` (mobile app)",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/notifications/push": {
+      "post": {
+        "tags": ["notifications"],
+        "summary": "Enviar push a un usuario",
+        "description": "Usado por orders-api, catalog-api, etc. Requiere header `X-Internal-Secret`. Implementa fire & forget: siempre responde 200.",
+        "operationId": "send_push_notifications_push_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/PushRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PushResponse" }
+              }
+            }
+          },
+          "403": {
+            "description": "X-Internal-Secret ausente o inválido"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "InternalSecret": [] }]
+      }
+    },
+    "/notifications/register-device": {
+      "post": {
+        "tags": ["notifications"],
+        "summary": "Registrar token de dispositivo",
+        "description": "La app mobile llama a este endpoint al iniciar sesión para habilitar push.",
+        "operationId": "register_device_notifications_register_device_post",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/RegisterDeviceRequest" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DeviceTokenResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "BearerAuth": [] }]
+      }
+    },
+    "/notifications/unregister-device": {
+      "delete": {
+        "tags": ["notifications"],
+        "summary": "Eliminar token de dispositivo",
+        "description": "La app mobile llama a este endpoint al hacer logout.",
+        "operationId": "unregister_device_notifications_unregister_device_delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UnregisterDeviceRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DeviceTokenResponse" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        },
+        "security": [{ "BearerAuth": [] }]
+      }
+    },
+    "/livez": {
+      "get": {
+        "tags": ["health"],
+        "summary": "Liveness probe",
+        "operationId": "livez_livez_get",
+        "responses": {
+          "200": { "description": "Successful Response" }
+        }
+      }
+    },
+    "/readyz": {
+      "get": {
+        "tags": ["health"],
+        "summary": "Readiness probe",
+        "operationId": "readyz_readyz_get",
+        "responses": {
+          "200": { "description": "Successful Response" },
+          "503": { "description": "Firebase no inicializado o Firestore no disponible" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NotificationType": {
+        "type": "string",
+        "enum": [
+          "ORDER_CONFIRMED",
+          "ORDER_IN_PREPARATION",
+          "ORDER_SHIPPED",
+          "ORDER_DELIVERED",
+          "ORDER_CANCELLED",
+          "PAYMENT_FAILED",
+          "LOW_STOCK",
+          "OUT_OF_STOCK",
+          "NEW_COUPON"
+        ],
+        "title": "NotificationType"
+      },
+      "PushRequest": {
+        "type": "object",
+        "title": "PushRequest",
+        "description": "Payload para enviar una notificación push a un usuario. Llamado por otros microservicios (orders-api, catalog-api) vía secret interno.",
+        "required": ["user_id", "title", "body"],
+        "properties": {
+          "user_id": { "type": "string", "title": "User Id" },
+          "title":   { "type": "string", "title": "Title" },
+          "body":    { "type": "string", "title": "Body" },
+          "notification_type": {
+            "allOf": [{ "$ref": "#/components/schemas/NotificationType" }],
+            "default": "ORDER_CONFIRMED"
+          },
+          "data": {
+            "type": "object",
+            "title": "Data",
+            "default": {}
+          }
+        }
+      },
+      "PushResponse": {
+        "type": "object",
+        "title": "PushResponse",
+        "description": "Respuesta del endpoint /push.",
+        "required": ["status", "user_id", "notification_type"],
+        "properties": {
+          "status":            { "type": "string", "title": "Status" },
+          "user_id":           { "type": "string", "title": "User Id" },
+          "notification_type": { "type": "string", "title": "Notification Type" },
+          "message_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "title": "Message Ids",
+            "default": []
+          },
+          "tokens_found": { "type": "integer", "title": "Tokens Found", "default": 0 }
+        }
+      },
+      "RegisterDeviceRequest": {
+        "type": "object",
+        "title": "RegisterDeviceRequest",
+        "required": ["token"],
+        "properties": {
+          "token":    { "type": "string", "title": "Token" },
+          "platform": { "type": "string", "title": "Platform", "default": "expo" }
+        }
+      },
+      "UnregisterDeviceRequest": {
+        "type": "object",
+        "title": "UnregisterDeviceRequest",
+        "required": ["token"],
+        "properties": {
+          "token": { "type": "string", "title": "Token" }
+        }
+      },
+      "DeviceTokenResponse": {
+        "type": "object",
+        "title": "DeviceTokenResponse",
+        "required": ["status"],
+        "properties": {
+          "status": { "type": "string", "title": "Status" }
+        }
+      },
+      "HTTPValidationError": {
+        "type": "object",
+        "title": "HTTPValidationError",
+        "properties": {
+          "detail": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "title": "Detail"
+          }
+        }
+      },
+      "ValidationError": {
+        "type": "object",
+        "title": "ValidationError",
+        "required": ["loc", "msg", "type"],
+        "properties": {
+          "loc": {
+            "type": "array",
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "title": "Location"
+          },
+          "msg":  { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        }
+      }
+    },
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "InternalSecret": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Internal-Secret"
+      }
+    }
+  }
+}
