@@ -1,3 +1,8 @@
+---
+title: "ADR 0012: Notificaciones Push con Firebase Cloud Messaging y Firestore"
+parent: ADRs
+nav_order: 12
+---
 # ADR 0012: Notificaciones Push con Firebase Cloud Messaging y Firestore
 
 ## Estado
@@ -77,7 +82,7 @@ Para las alertas de stock bajo (`LOW_STOCK`) y sin stock (`OUT_OF_STOCK`) genera
 
 ### Resiliencia: retry con backoff exponencial en los callers
 
-El envío de push desde orders-api y catalog-api hacia notifications-api usa el mismo patrón de **retry con backoff exponencial** definido en ADR 0009: 3 intentos máximos, delay base de 1 segundo, multiplicador de 2. El retry se ejecuta en un thread daemon (en Python) para no bloquear el response del endpoint principal.
+El envío de push desde orders-api y catalog-api hacia notifications-api usa el mismo patrón de **retry con backoff exponencial** definido en ADR 0014: 3 intentos máximos, delay base de 1 segundo, multiplicador de 2. El retry se ejecuta en un thread daemon (en Python) para no bloquear el response del endpoint principal.
 
 ## Alternativas descartadas
 

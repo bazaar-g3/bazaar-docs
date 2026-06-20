@@ -1,3 +1,8 @@
+---
+title: "ADR 0005: Gateway de Pagos — MercadoPago Checkout Pro"
+parent: ADRs
+nav_order: 5
+---
 # ADR 0005: Gateway de Pagos — MercadoPago Checkout Pro
 
 ## Estado

@@ -1,3 +1,8 @@
+---
+title: "ADR 0008: Gestión de Categorías — Catálogo Predefinido en Código"
+parent: ADRs
+nav_order: 8
+---
 # ADR 0008: Gestión de Categorías — Catálogo Predefinido en Código
 
 ## Estado

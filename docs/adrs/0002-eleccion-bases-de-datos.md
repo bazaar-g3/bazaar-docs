@@ -1,3 +1,8 @@
+---
+title: "ADR 0002: Persistencia (MongoDB y PostgreSQL)"
+parent: ADRs
+nav_order: 2
+---
 # ADR 0002: Persistencia (MongoDB y PostgreSQL)
 
 ## Estado

@@ -1,3 +1,8 @@
+---
+title: "ADR 0009: Aplicación de Cupones en Checkout — Bounded Context, Atomicidad y Compensación"
+parent: ADRs
+nav_order: 9
+---
 # ADR 0009: Aplicación de Cupones en Checkout — Bounded Context, Atomicidad y Compensación
 
 ## Estado

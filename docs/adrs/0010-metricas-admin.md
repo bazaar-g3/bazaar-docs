@@ -1,3 +1,8 @@
+---
+title: "ADR 0010: Métricas de administración: arquitectura distribuida y visualización con Recharts"
+parent: ADRs
+nav_order: 10
+---
 # ADR 0010: Métricas de administración: arquitectura distribuida y visualización con Recharts
 
 ## Estado

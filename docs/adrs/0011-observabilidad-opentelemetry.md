@@ -1,3 +1,8 @@
+---
+title: "ADR 0011: Observabilidad con OpenTelemetry, Jaeger y Correlation ID"
+parent: ADRs
+nav_order: 11
+---
 # ADR 0011: Observabilidad con OpenTelemetry, Jaeger y Correlation ID
 
 ## Estado

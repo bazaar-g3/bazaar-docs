@@ -1,4 +1,9 @@
-# ADR 0009: Resiliencia en la Comunicación entre Servicios
+---
+title: "ADR 0014: Resiliencia en la Comunicación entre Servicios"
+parent: ADRs
+nav_order: 14
+---
+# ADR 0014: Resiliencia en la Comunicación entre Servicios
 
 ## Estado
 Aceptado

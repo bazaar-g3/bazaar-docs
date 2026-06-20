@@ -1,3 +1,8 @@
+---
+title: "ADR 0013: Contratos de API entre Servicios — OpenAPI como Fuente de Verdad y Verificación Automatizada"
+parent: ADRs
+nav_order: 13
+---
 # ADR 0013: Contratos de API entre Servicios — OpenAPI como Fuente de Verdad y Verificación Automatizada
 
 ## Estado

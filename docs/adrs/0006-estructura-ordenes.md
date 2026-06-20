@@ -1,3 +1,8 @@
+---
+title: "ADR 0006: Estructura de Órdenes —Estructura de Órdenes — Orden Única Consolidada con Fulfillments por Vendedor"
+parent: ADRs
+nav_order: 6
+---
 # ADR 0006: Estructura de Órdenes —Estructura de Órdenes — Orden Única Consolidada con Fulfillments por Vendedor
 
 ## Estado

@@ -1,3 +1,8 @@
+---
+title: "ADR 0003: API Gateway como Punto Único de Entrada — Enrutamiento, Autenticación y Rate Limiting"
+parent: ADRs
+nav_order: 3
+---
 # ADR 0003: API Gateway como Punto Único de Entrada — Enrutamiento, Autenticación y Rate Limiting
 
 ## Estado

@@ -1,3 +1,8 @@
+---
+title: "ADR 0007: Consistencia Distribuida en el Ciclo de Vida de la Orden — Saga con Compensación Síncrona"
+parent: ADRs
+nav_order: 7
+---
 # ADR 0007: Consistencia Distribuida en el Ciclo de Vida de la Orden — Saga con Compensación Síncrona
 
 ## Estado
@@ -119,4 +124,4 @@ Cuando payments-api completa el reembolso en MercadoPago, notifica a orders-api 
 - **Sin reconciliación de reservas colgadas**: si `restore_stock` falla durante la compensación del checkout o de la cancelación, el stock queda reservado indefinidamente. No existe un job de limpieza ni un TTL sobre las reservas. Requiere intervención manual o un proceso periódico de reconciliación.
 - **Reembolso manual ante fallo de payments-api**: si `create_refund` falla al cancelar (payments-api no disponible), la orden queda en `cancelled` sin reembolso iniciado. El campo `payment_id` persiste en la DB para permitir un reintento manual o automatizado.
 - **Notificación de pago como webhook externo**: si MercadoPago falla al notificar el resultado del pago, la orden queda en `pending_payment` indefinidamente. MercadoPago reintenta sus webhooks automáticamente, pero no existe un mecanismo propio de reconciliación para detectar órdenes huérfanas.
-- **Acoplamiento temporal con catalog-api**: si catalog-api no está disponible durante el checkout, toda la operación falla. No hay fallback implementado sobre esta llamada (ver ADR 0009).
+- **Acoplamiento temporal con catalog-api**: si catalog-api no está disponible durante el checkout, toda la operación falla. No hay fallback implementado sobre esta llamada (ver ADR 0014).
