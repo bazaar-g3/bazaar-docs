@@ -1,4 +1,9 @@
-# AGENTS.md — Guía de uso de IA en Bazaar
+---
+title: Uso de IA
+nav_order: 8
+---
+
+# Uso de IA a lo largo del proyecto
 
 Este archivo describe cómo el equipo 3 incorpora herramientas de IA en el flujo de desarrollo.
 
