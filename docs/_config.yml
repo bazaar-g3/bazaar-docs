@@ -1,3 +1,19 @@
 remote_theme: just-the-docs/just-the-docs
 
 title: "Documentación Bazaar - Grupo 3"
+
+nav_external_links:
+  - title: bazaar-user-api
+    url: https://github.com/bazaar-g3/bazaar-user-api
+  - title: bazaar-catalog-api
+    url: https://github.com/bazaar-g3/bazaar-catalog-api
+  - title: bazaar-orders-api
+    url: https://github.com/bazaar-g3/bazaar-orders-api
+  - title: bazaar-payment-api
+    url: https://github.com/bazaar-g3/bazaar-payment-api
+  - title: bazaar-notifications-api
+    url: https://github.com/bazaar-g3/bazaar-notifications-api
+  - title: bazaar-backoffice
+    url: https://github.com/bazaar-g3/bazaar-backoffice
+  - title: bazaar-mobile
+    url: https://github.com/bazaar-g3/bazaar-mobile
