@@ -25,7 +25,7 @@ El backoffice de Bazaar es un panel web interno de administración del marketpla
 
 ### 2.2 Inicio de sesión
 
-![Pantalla de login del backoffice](imgs/manual-backoffice/backoffice-login.png)
+<p align="center"><img src="imgs/manual-backoffice/backoffice-login.png" alt="Pantalla de login del backoffice" width="400"></p>
 
 **Pasos**
 
@@ -87,7 +87,7 @@ Hacé clic en **"Cerrar sesión"** en la parte inferior del sidebar. El panel el
 
 ### 4.1 Dashboard
 
-![Vista del Dashboard con las stat cards y la tabla de últimas órdenes](imgs/manual-backoffice/backoffice-dashboard.png)
+<p align="center"><img src="imgs/manual-backoffice/backoffice-dashboard.png" alt="Vista del Dashboard con las stat cards y la tabla de últimas órdenes" width="400"></p>
 
 El Dashboard es la pantalla de inicio del panel, identificada con el título **"Dashboard"** y el subtítulo **"Resumen general del sistema"**. Ofrece una visión rápida del estado global del marketplace.
 
@@ -120,7 +120,7 @@ Debajo de las tarjetas, la sección **"Últimas órdenes"** lista las 5 órdenes
 
 ### 4.2 Métricas y Analítica
 
-![Vista de Métricas con los gráficos de distribución y evolución](imgs/manual-backoffice/backoffice-metricas.png)
+<p align="center"><img src="imgs/manual-backoffice/backoffice-metricas.png" alt="Vista de Métricas con los gráficos de distribución y evolución" width="400"></p>
 
 La página **"Métricas"** (subtítulo **"Análisis y estadísticas del sistema"**) ofrece una vista analítica detallada del marketplace. Todos los datos se filtran según el período seleccionado.
 
@@ -189,7 +189,7 @@ El botón **"Exportar CSV"** queda deshabilitado mientras los datos están carga
 
 ### 4.3 Gestión de Usuarios
 
-![Listado de usuarios con filtros y acciones de bloqueo](imgs/manual-backoffice/backoffice-usuarios.png)
+<p align="center"><img src="imgs/manual-backoffice/backoffice-usuarios.png" alt="Listado de usuarios con filtros y acciones de bloqueo" width="400"></p>
 
 La página **"Usuarios"** (subtítulo **"Gestión de cuentas registradas"**) lista todas las cuentas registradas en la plataforma y permite bloquearlas o desbloquearlas.
 
@@ -252,7 +252,7 @@ En la columna **Acciones**, hacé clic en **"Desbloquear"**. La acción se ejecu
 
 ### 4.4 Gestión de Órdenes
 
-![Listado de órdenes con una fila expandida mostrando el detalle](imgs/manual-backoffice/backoffice-ordenes.png)
+<p align="center"><img src="imgs/manual-backoffice/backoffice-ordenes.png" alt="Listado de órdenes con una fila expandida mostrando el detalle" width="400"></p>
 
 La página **"Órdenes"** (subtítulo **"Soporte técnico — todas las órdenes del sistema"**) es de solo lectura y muestra todas las órdenes del marketplace. Carga 20 órdenes por página desde el servidor.
 
@@ -306,7 +306,7 @@ El detalle se carga bajo demanda desde `GET /orders/admin/{id}` al expandir la f
 
 ### 4.5 Moderación de Productos
 
-![Listado de productos con el modal de moderación abierto](imgs/manual-backoffice/backoffice-productos.png)
+<p align="center"><img src="imgs/manual-backoffice/backoffice-productos.png" alt="Listado de productos con el modal de moderación abierto" width="400"></p>
 
 La página **"Moderación de Productos"** (subtítulo **"Listado completo de productos · Podés deshabilitar o rehabilitar cualquier publicación"**) permite al administrador revisar y moderar cualquier producto del catálogo.
 
