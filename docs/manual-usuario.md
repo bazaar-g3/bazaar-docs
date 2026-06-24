@@ -28,6 +28,8 @@ Para usar Bazaar necesitás tener la aplicación instalada en tu dispositivo mó
 
 Creá tu cuenta de Bazaar para acceder a todas las funciones de compra y venta.
 
+![Pantalla de registro](imgs/manual-usuario/registro.png)
+
 **Pasos:**
 1. Abrí la app y tocá **Regístrate** en la pantalla de inicio de sesión.
 2. Completá el campo **Nombre completo** con tu nombre y apellido.
@@ -47,6 +49,8 @@ Creá tu cuenta de Bazaar para acceder a todas las funciones de compra y venta.
 ### 2.3 Inicio de sesión
 
 Accedé a tu cuenta existente con correo electrónico y contraseña.
+
+![Pantalla de inicio de sesión](imgs/manual-usuario/login.png)
 
 **Pasos:**
 1. Abrí la app; si no estás logueado verás la pantalla **INICIAR SESIÓN**.
@@ -73,6 +77,8 @@ Configurá un PIN de acceso para ingresar a Bazaar sin escribir tu contraseña c
 
 #### Configurar el PIN
 
+![Pantalla de configuración de PIN](imgs/manual-usuario/pin-setup.png)
+
 **Pasos:**
 1. La app te ofrecerá configurar un PIN automáticamente al iniciar sesión por primera vez en el dispositivo. También podés iniciarlo desde tu perfil. En ambos casos se abre la pantalla **CONFIGURAR PIN**.
 2. Ingresá un PIN de 6 dígitos usando el teclado numérico en pantalla.
@@ -87,6 +93,8 @@ Configurá un PIN de acceso para ingresar a Bazaar sin escribir tu contraseña c
 > - Si el dispositivo ya tiene un PIN configurado por otra cuenta, antes del flujo de configuración aparece el paso **"VINCULAR AL PIN"** con el mensaje *"Este dispositivo ya tiene un PIN. Ingresalo para vincular tu cuenta también."* y el botón **VINCULAR**.
 
 #### Usar el PIN para ingresar
+
+![Pantalla de ingreso con PIN](imgs/manual-usuario/pin-login.png)
 
 **Pasos:**
 1. En la pantalla de inicio de sesión, tocá **Ingresar con PIN**.
@@ -184,6 +192,8 @@ La tarjeta de información del perfil incluye una fila **Tema** con dos botones:
 
 #### Configurar la seguridad desde el perfil
 
+![Sección de seguridad del perfil](imgs/manual-usuario/perfil-seguridad.png)
+
 Debajo de la información personal se encuentra la sección **Seguridad**, con las siguientes opciones:
 
 **PIN de acceso** — El estado del PIN se indica con un badge: **Activo** o **Inactivo**.
@@ -202,6 +212,8 @@ Debajo de la información personal se encuentra la sección **Seguridad**, con l
 
 #### Pantalla principal
 
+![Pantalla principal de Bazaar](imgs/manual-usuario/home.png)
+
 Al abrir la app, la pantalla de inicio muestra una barra de búsqueda en la parte superior y, debajo, un carrusel horizontal con las categorías disponibles en la plataforma. Tocar una categoría lleva directamente al listado filtrado por ella. En el extremo superior derecho hay un ícono de campana que abre la pantalla de **Notificaciones** (ver sección 4.7); si tenés notificaciones sin leer, el ícono muestra un badge con el conteo (hasta "9+" para cantidades mayores).
 
 Más abajo se presentan tres secciones de productos en scroll horizontal:
@@ -216,6 +228,8 @@ Tocar cualquier producto en estas secciones abre su pantalla de detalle.
 
 Desde la pantalla de catálogo podés buscar, filtrar y ordenar el catálogo completo.
 
+![Panel de filtros](imgs/manual-usuario/filtros.png)
+
 **Pasos:**
 1. Ingresá el término de búsqueda en el campo **"Buscar productos..."** y tocá el ícono de lupa o presioná la tecla de búsqueda en el teclado.
 2. Para ordenar los resultados, elegí una opción de la fila de chips debajo del buscador: **Recientes**, **Menor precio**, **Mayor precio** o **Relevancia**. Tocar el chip activo lo deselecciona y vuelve al orden por defecto.
@@ -229,6 +243,8 @@ Desde la pantalla de catálogo podés buscar, filtrar y ordenar el catálogo com
 > **Nota:** El ícono de filtros muestra un indicador numérico cuando hay uno o más filtros activos.
 
 #### Ver el detalle de un producto
+
+![Detalle de un producto](imgs/manual-usuario/producto-detalle.png)
 
 La pantalla de detalle reúne toda la información disponible sobre un artículo:
 
@@ -252,6 +268,8 @@ Las acciones disponibles desde esta pantalla son:
 ### 4.3 Carrito de Compras
 
 Accedé al carrito desde la pestaña **Carrito** de la barra de navegación. La pantalla se titula **Mi carrito** y muestra el listado completo de productos agregados.
+
+![Carrito de compras](imgs/manual-usuario/carrito.png)
 
 Si el carrito está vacío, aparece el mensaje "Tu carrito está vacío" y el botón **Ir al catálogo** para volver a explorar.
 
@@ -287,6 +305,8 @@ Si algún ítem dejó de estar disponible desde que fue agregado, aparece con un
 
 ### 4.4 Checkout y Pago
 
+![Pantalla de confirmación de compra](imgs/manual-usuario/checkout.png)
+
 La pantalla **Confirmar compra** centraliza el resumen del pedido, el cupón de descuento, la dirección de entrega y el pago con MercadoPago.
 
 **Pasos:**
@@ -321,6 +341,8 @@ La pantalla **Confirmar compra** centraliza el resumen del pedido, el cupón de 
 Accedé a tus órdenes desde la pestaña **Mis órdenes** de la barra de navegación. La pantalla muestra todas tus compras con sus estados actuales.
 
 #### Ver el listado de órdenes
+
+![Listado de órdenes](imgs/manual-usuario/ordenes.png)
 
 Cada tarjeta de orden muestra el estado, la fecha, el identificador de orden y el total. Para filtrar por estado, tocá uno de los chips de la fila horizontal: **Todas**, **Pendiente**, **Confirmada**, **Preparación**, **Enviada**, **Entregada**, **Rechazada** o **Cancelada**.
 
@@ -403,6 +425,8 @@ La wishlist te permite guardar productos para revisarlos más tarde. Accedé des
 
 #### Ver la wishlist
 
+![Lista de deseos](imgs/manual-usuario/wishlist.png)
+
 La pantalla muestra el total de productos guardados (por ejemplo, "3 productos"). Cada tarjeta presenta la imagen, el nombre y el precio del artículo.
 
 Si la wishlist está vacía, aparece el mensaje "Tu wishlist está vacía" con la indicación "Tocá el ♡ en cualquier publicación para guardar productos y encontrarlos acá fácilmente." y el botón **Explorar catálogo**.
@@ -435,6 +459,8 @@ Las tarjetas con estos estados no son tappables.
 
 Accedé a tus notificaciones tocando el ícono de campana en la esquina superior derecha de la pantalla de inicio. La pantalla se titula **Notificaciones** y lista el historial completo de avisos recibidos.
 
+![Pantalla de notificaciones](imgs/manual-usuario/notificaciones.png)
+
 Cada notificación muestra un ícono identificador, un título, el cuerpo del mensaje y la antigüedad relativa: **Ahora** (menos de 1 minuto), **Hace N min** (hasta 59 minutos), **Hace N h** (hasta 23 horas) o **Hace N d** (hasta 6 días). Las notificaciones no leídas se destacan visualmente con un punto indicador.
 
 Los tipos de notificaciones que podés recibir son:
@@ -464,6 +490,8 @@ Podés arrastrar hacia abajo la lista para recargar el historial.
 
 #### Acceder a la pestaña Publicaciones
 
+![Listado de publicaciones del vendedor](imgs/manual-usuario/publicaciones.png)
+
 Desde la pestaña **Perfil** de la barra de navegación, tocá **Publicaciones** en el menú lateral. La pantalla muestra el listado de tus publicaciones bajo el título **Mis publicaciones** (en móvil) o **Gestión de publicaciones** (en pantallas más anchas).
 
 Podés buscar por título usando el campo **"Buscar por título..."** y filtrar por estado tocando los chips **Activa** o **Inactiva**. Cada tarjeta indica el **Stock** actual, la cantidad de **Vendidos** y el interruptor **Visible** para activar o pausar la publicación en el catálogo.
@@ -471,6 +499,8 @@ Podés buscar por título usando el campo **"Buscar por título..."** y filtrar 
 Si todavía no tenés publicaciones, aparece el mensaje *"Todavía no tenés publicaciones."* con la leyenda *"Podés crear una y empezar a vender cuando quieras."* y el botón **Publicar ahora**.
 
 #### Crear una publicación nueva
+
+![Formulario de publicación de producto](imgs/manual-usuario/publicar-producto.png)
 
 **Pasos:**
 1. En la pantalla de publicaciones, tocá **+ Publicar** (esquina superior derecha) o **Publicar ahora** si el listado está vacío.
@@ -533,6 +563,8 @@ El perfil muestra:
 
 #### Ventas
 
+![Panel de ventas del vendedor](imgs/manual-usuario/ventas.png)
+
 Accedé al panel desde la pestaña **Ventas** en el menú lateral del perfil. La pantalla muestra el título **Historial de ventas** y el subtítulo **Pedidos recibidos**.
 
 Filtrá por estado con los chips horizontales: **Todas**, **Confirmadas**, **En preparación**, **Enviadas**, **Entregadas** o **Canceladas**.
@@ -570,6 +602,8 @@ Solo disponible para ventas en estado "Confirmada".
 Si todavía no recibiste ventas, aparece el mensaje *"Todavía no tenés ventas."* con la leyenda *"Cuando alguien compre uno de tus productos, el pedido va a aparecer acá."*
 
 #### Cupones
+
+![Panel de cupones del vendedor](imgs/manual-usuario/cupones.png)
 
 Accedé a los cupones desde la pestaña **Cupones** en el menú lateral del perfil. La pantalla muestra el título **Cupones de descuento** con el subtítulo *"Creá y administrá códigos promocionales para tus clientes."*
 
